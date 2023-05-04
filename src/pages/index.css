@@ -1,0 +1,98 @@
+/* Set global font family and background color */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #1f1f1f;
+  }
+  
+  /* Style the search results */
+  .results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .results h2 {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .results p {
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    color: #a0aec0;
+  }
+  
+  /* Style the search bar */
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  
+  .search-form label {
+    font-size: 1.4rem;
+    color: #a0aec0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-form input[type='text'] {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #2d2d2d;
+    color: #f5f5f5;
+    font-size: 1.6rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    outline: none;
+  }
+  
+  .search-form button[type='submit'] {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #0058cc;
+    color: #f5f5f5;
+    font-size: 1.6rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .search-form button[type='submit']:hover {
+    background-color: #0046a5;
+  }
+  
+  /* Style the language buttons */
+  .lang-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .lang-buttons button {
+    padding: 0.8rem 1.2rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #373737;
+    color: #f5f5f5;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .lang-buttons button:hover {
+    background-color: #2e2e2e;
+  }
+  
+  /* Style the selected language display */
+  .selected-lang {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    color: #a0aec0;
+  }
+  
