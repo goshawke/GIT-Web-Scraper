@@ -1,11 +1,13 @@
 from flask import Flask, request
 from bs4 import BeautifulSoup
+from flask_cors import CORS
 import requests
 import json
 import datetime
 import lxml
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
 
 @app.route("/")
 def home():
@@ -15,7 +17,7 @@ def home():
 def searchResults(term):
     print("search term is: " + term)
 
-    url = f'https://github.com/search?l=C&o=desc&s=updated&type=Repositories&q={term}&p=1'
+    url = f'https://github.com/search?l=C%2B%2B&o=desc&s=updated&type=Repositories&q={term}&p=1'
 
     response = requests.get(url)
 
