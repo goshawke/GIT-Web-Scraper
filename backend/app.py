@@ -1,8 +1,14 @@
-from flask import Flask
+from flask import Flask,jsonify, request
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 import requests
+import json
+import datetime
+import lxml
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000"])
+
 
 @app.route("/")
 def home():
@@ -53,5 +59,70 @@ def searchResults(term):
         count = count + 1
 
     print("Success")
-    return results
+    return jsonify(results)
+    
+@app.route("/file-structure")
+def fileStructure():
 
+    args = request.args
+    user = args["user"]
+    projName = args["projName"]
+    current_location = request.args.get("fullRoute", default= "")
+    route = current_location.replace("-", "/")
+    print("full route is :  " + current_location)
+    print("user is : " + user)
+    data = []
+    url = f'https://github.com/{user}/{projName}/{route}'
+    response = requests.get(url)
+    html_content = response.content
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_content, 'lxml')
+    list_of_content = soup.find_all('div',{'role':'row','class':'Box-row Box-row--focus-gray py-2 d-flex position-relative js-navigation-item'})
+    
+    for content in list_of_content:
+        content_name = content.find('div', {'role': 'rowheader'}).get_text().strip()
+        content_type_temp = content.svg
+        content_url = (content.a)['href']
+        content_type = content_type_temp['aria-label']
+        today = datetime.datetime.now()
+        #content_updated_tag = content.find('relative-time')
+        content_updated_tag = content.select_one('relative-time')
+        if content_updated_tag is not None:
+            content_updated = content_updated_tag.text
+        else:
+            content_updated = "N/A"
+        data.append({'content_name': str(content_name), 'content_type': str(content_type), 'content_updated': str(content_updated), 'URL': str(content_url)})
+    for d in data:
+        print(d)
+    return data
+
+	
+@app.route("/dependencies")
+def dependencies():
+    args = request.args
+    user = args["user"]
+    projName = args["projName"]
+    # Define the URL of the repository page
+    url = f'https://github.com/{user}/{projName}/network/dependencies'
+    # Send a request to the URL and get the HTML content
+    response = requests.get(url)
+    html_content = response.content
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_content, 'lxml')
+    # Find the README.md file and extract its contents
+    dependencies_list = soup.find_all('div', {'data-test-selector':'dg-repo-pkg-dependency'})
+    dependencies = []
+    if dependencies_list:
+        
+        for all_dep in dependencies_list:
+            #temp = BeautifulSoup(all_dep, 'html.parser')
+            dependency_name = all_dep.find('a',{'data-hovercard-type':'dependendency_graph_package'}).get_text().strip()
+            dependency_version = all_dep.find('span',{'data-view-component':'true'}).get_text().strip()
+            dependencies.append({'dependency_name':f'{dependency_name}','dependency_version':f'{dependency_version}'})
+        print(dependencies)
+    else:
+        print("No dependencies")
+    return dependencies
+    
+    
+    
