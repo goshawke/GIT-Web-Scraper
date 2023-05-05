@@ -105,3 +105,35 @@ def fileStructure():
 
     return data
 
+@app.route("/dependencies")
+def dependencies():
+    args = request.args
+    user = args["user"]
+    projName = args["projName"]
+
+    # Define the URL of the repository page
+    url = f'https://github.com/{user}/{projName}/network/dependencies'
+
+    # Send a request to the URL and get the HTML content
+    response = requests.get(url)
+    html_content = response.content
+
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_content, 'lxml')
+
+    # Find the README.md file and extract its contents
+    dependencies_list = soup.find_all('div', {'data-test-selector':'dg-repo-pkg-dependency'})
+
+    dependencies = []
+    if dependencies_list:
+        
+        for all_dep in dependencies_list:
+            #temp = BeautifulSoup(all_dep, 'html.parser')
+            dependency_name = all_dep.find('a',{'data-hovercard-type':'dependendency_graph_package'}).get_text().strip()
+            dependency_version = all_dep.find('span',{'data-view-component':'true'}).get_text().strip()
+            dependencies.append({'dependency_name':f'{dependency_name}','dependency_version':f'{dependency_version}'})
+        print(dependencies)
+
+    else:
+        print("No dependencies")
+    return dependencies
