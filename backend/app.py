@@ -6,7 +6,7 @@ import json
 import datetime
 import lxml
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
 
 
