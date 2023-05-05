@@ -20,6 +20,17 @@ const Results: React.FC = () => {
     return <div>No results found.</div>;
   }
 
+  const handleFileStructureClick = (repoName: string) => {
+    const [user, projName] = repoName.split('/');
+    router.push(`/file-structure?user=${user}&projName=${projName}`);
+  };
+  
+
+  const handleDependenciesClick = (repoName: string) => {
+    // Navigate to the Dependencies page for the selected repo
+    router.push(`/dependencies?repo=${repoName}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <main className="flex flex-col items-center space-y-4 pt-16">
@@ -33,6 +44,7 @@ const Results: React.FC = () => {
                   <th className="border border-gray-800 px-4 py-2">Language</th>
                   <th className="border border-gray-800 px-4 py-2">License</th>
                   <th className="border border-gray-800 px-4 py-2">Last Updated</th>
+                  <th className="border border-gray-800 px-4 py-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,6 +68,20 @@ const Results: React.FC = () => {
                     </td>
                     <td className="border border-gray-800 px-4 py-2">
                       {repo.details?.[2] || 'N/A'}
+                    </td>
+                    <td className="border border-gray-800 px-4 py-2 flex space-x-2">
+                      <button
+                        onClick={() => handleFileStructureClick(repo.name)}
+                        className="bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded text-sm"
+                      >
+                        File Structure
+                      </button>
+                      <button
+                        onClick={() => handleDependenciesClick(repo.name)}
+                        className="bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-sm"
+                      >
+                        Dependencies
+                      </button>
                     </td>
                   </tr>
                 ))}
