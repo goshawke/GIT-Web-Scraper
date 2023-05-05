@@ -17,6 +17,7 @@ def home():
 def searchResults(term):
     print("search term is: " + term)
 
+    args = request.args
     lang = args["lang"]
 
     url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=1'
