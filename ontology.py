@@ -2,7 +2,7 @@ from owlready2 import *
 from datetime import *
 
 
-onto = get_ontology("file:///Users/connornorton/Desktop/Python Workspace 2023/Web Scraper Ontology /web_scraper_ontology.owx").load()
+onto = get_ontology("C:\\Users\\lukas\\repos\\cs6235\\web_scraper_ontology.owx").load()
 
 
 # Language Properties
