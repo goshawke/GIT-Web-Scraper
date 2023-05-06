@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 from flask_cors import CORS
 import requests
 import json
-import datetime
+from datetime import *
 import lxml
+import ontology
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
@@ -59,9 +60,15 @@ def searchResults(term):
         result = {'name': repo_name, 'details' : details}
 
         results.append(result)
+        
+        newProj = ontology.create_project(result.get("name", "N/A"), "owner", "C", ["GNU_Lesser_General_Public_License"], 10, datetime(2023, 1, 4))
+        print("new proj was created in ontology, name is : " + newProj.title)
         count = count + 1
 
     print("Success")
+    returnedOntResult1 = ontology.get_individuals_Project_WithLastModified()
+    for res in returnedOntResult1:
+        print("returned from ontology :" + res) 
     return results
 
 @app.route("/file-structure")

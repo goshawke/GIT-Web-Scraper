@@ -443,6 +443,8 @@ get_individuals_Project_WithLastModified(verbosity=1, last_modified_range=None):
         - Must run reasoner before calling or will return empty
 '''
 def get_individuals_Project_WithLastModified(verbosity=0, last_modified_range=None):
+        with onto:
+            sync_reasoner(debug=1)
         if last_modified_range is None:
             if onto.Project_WithLastModified is not None:
                 individuals = [ind.name for ind in onto.Project_WithLastModified.instances()]
