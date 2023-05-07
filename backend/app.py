@@ -6,6 +6,7 @@ import json
 from datetime import *
 import lxml
 import ontology
+import git_project
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
@@ -18,8 +19,7 @@ def home():
 def searchResults(term):
     print("search term is: " + term)
 
-    args = request.args
-    lang = args["lang"]
+    lang = request.args.get("lang", default="C")
 
     url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=1'
 
@@ -60,15 +60,24 @@ def searchResults(term):
         result = {'name': repo_name, 'details' : details}
 
         results.append(result)
+
+        proj = git_project.GitProject(result['name'], result['details'])
+        print("project license is:  " + proj.license)
+
+
         
-        newProj = ontology.create_project(result.get("name", "N/A"), "owner", "C", ["GNU_Lesser_General_Public_License"], 10, datetime(2023, 1, 4))
+        newProj = ontology.create_project(proj.name, proj.owner, proj.lang, ["MIT_License"], proj.stars, datetime(2023, 1, 4))
         print("new proj was created in ontology, name is : " + newProj.title)
         count = count + 1
-
+    ontology.sync_ontology_updates()
     print("Success")
+
+    ## this is purely test code, TODO delete it 
     returnedOntResult1 = ontology.get_individuals_Project_WithLastModified()
     for res in returnedOntResult1:
         print("returned from ontology :" + res) 
+
+        
     return results
 
 @app.route("/file-structure")

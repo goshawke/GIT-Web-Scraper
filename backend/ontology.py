@@ -13,6 +13,7 @@ Prop_C_Sharp = "C_Sharp"
 
 
 # License Properties
+
 Prop_Academic_Free_License_v3_0 = "Academic_Free_License_v3_0"
 Prop_Apache_License_2_0 = "Apache_License_2_0"
 Prop_Artistic_License_2_0 = "Artistic_License_2_0"
@@ -67,6 +68,59 @@ Prop_University_of_Illinois__NCSA_Open_Source_License = "University_of_Illinois_
 Prop_Vim_License = "Vim_License"
 Prop_zlib_License = "zlib_License"
 
+all_licenses = [Prop_Academic_Free_License_v3_0,
+Prop_Apache_License_2_0,
+Prop_Artistic_License_2_0,
+Prop_BSD_2_Clause_Simplified_License,
+Prop_BSD_3_Clause_Clear_License,
+Prop_BSD_3_Clause_New_or_Revised_License,
+Prop_BSD_4_Clause_Original_or_Old_License,
+Prop_BSD_License,
+Prop_BSD_Zero_Clause_License,
+Prop_Boost_Software_License_1_0,
+Prop_CERN_License,
+Prop_CERN_Open_Hardware_Licence_Version_2_Permissive,
+Prop_CERN_Open_Hardware_Licence_Version_2_Strongly_Reciprocal,
+Prop_CERN_Open_Hardware_Licence_Version_2_Weakly_Reciprocal,
+Prop_CeCILL_Free_Software_License_Agreement_v2_1,
+Prop_Creative_Commons_Attribution_4_0_International,
+Prop_Creative_Commons_Attribution_Share_Alike_4_0_International,
+Prop_Creative_Commons_License,
+Prop_Creative_Commons_Zero_v1_0_Universal,
+Prop_Do_What_The_Fuck_You_Want_To_Public_License,
+Prop_Eclipse_Public_License,
+Prop_Eclipse_Public_License_1_0,
+Prop_Eclipse_Public_License_2_0,
+Prop_Educational_Community_License_v2_0,
+Prop_European_Union_Public_License,
+Prop_European_Union_Public_License_1_1,
+Prop_European_Union_Public_License_1_2,
+Prop_GNU_Affero_General_Public_License_v3_0,
+Prop_GNU_Free_Documentation_License_v1_3,
+Prop_GNU_General_Public_License,
+Prop_GNU_General_Public_License_v2_0,
+Prop_GNU_General_Public_License_v3_0,
+Prop_GNU_Lesser_General_Public_License,
+Prop_GNU_Lesser_General_Public_License_v2_1,
+Prop_GNU_Lesser_General_Public_License_v3_0,
+Prop_GNU_License,
+Prop_ISC_License ,
+Prop_LaTeX_Project_Public_License_v1_3c,
+Prop_MIT_License,
+Prop_MIT_No_Attribution,
+Prop_Microsoft_License,
+Prop_Microsoft_Public_License,
+Prop_Microsoft_Reciprocal_License,
+Prop_Mulan_Permissive_Software_License_Version_2 ,
+Prop_Open_Data_Commons_Open_Database_License_v1_0,
+Prop_Open_Software_License_3_0,
+Prop_PostgreSQL_License,
+Prop_SIL_Open_Font_License_1_1,
+Prop_The_Unlicense,
+Prop_Universal_Permissive_License_v1_0,
+Prop_University_of_Illinois__NCSA_Open_Source_License,
+Prop_Vim_License,
+Prop_zlib_License]
 
 # Stars Properties
 Prop_no_Stars = "no_Stars"
@@ -142,6 +196,10 @@ def create_project(title, owner, language, licenses, num_stars, last_modified_da
         
         return my_project
 # end create_project()
+
+def sync_ontology_updates():
+    with onto:
+        sync_reasoner()
 
 
 def set_last_modified_range(onto, project):
@@ -443,8 +501,6 @@ get_individuals_Project_WithLastModified(verbosity=1, last_modified_range=None):
         - Must run reasoner before calling or will return empty
 '''
 def get_individuals_Project_WithLastModified(verbosity=0, last_modified_range=None):
-        with onto:
-            sync_reasoner(debug=1)
         if last_modified_range is None:
             if onto.Project_WithLastModified is not None:
                 individuals = [ind.name for ind in onto.Project_WithLastModified.instances()]
