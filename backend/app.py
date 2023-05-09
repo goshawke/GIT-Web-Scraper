@@ -26,6 +26,7 @@ def searchResults(term):
     response = requests.get(url)
 
     html_content = response.content
+    print("response status is : " + str(response.status_code))
     soup = BeautifulSoup(html_content, 'html.parser')
 
     search_results = soup.find_all('li', {'class':'repo-list-item'})
@@ -49,6 +50,8 @@ def searchResults(term):
 
         repoDetails = soup3.find_all('div', {'class':'mr-3'})
         number_of_details = len(repoDetails)
+
+        ## TODO may just want like 3 retries here if number_of_details comes back empty
         
         print(f"Number of details present in the repo: " + str(number_of_details))
 
@@ -77,7 +80,7 @@ def searchResults(term):
     for res in returnedOntResult1:
         print("returned from ontology :" + res) 
 
-        
+
     return results
 
 @app.route("/file-structure")

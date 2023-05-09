@@ -8,7 +8,7 @@ class GitProject:
         self.name = split_title[1]
         self.stars = 0
         self.license = "MIT_License"
-        self.updated = datetime.min
+        self.updated = None
         self.lang = ""
         
         for detail  in details:
