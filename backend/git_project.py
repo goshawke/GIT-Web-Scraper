@@ -7,9 +7,9 @@ class GitProject:
         self.owner = split_title[0]
         self.name = split_title[1]
         self.stars = 0
-        self.license = "MIT_License"
+        self.license = 'MIT_License'
         self.updated = None
-        self.lang = ""
+        self.lang = 'C'
         
         for detail  in details:
             if parse_stars(detail) > 0:
@@ -19,9 +19,9 @@ class GitProject:
             elif detail.startswith('Updated'):
                 parsed = detail.strip('Updated ')
                 reparsed = parsed.strip(',')
-                self.updated = datetime.strptime(reparsed, "%B %d, %Y")
+                self.updated = datetime.strptime(reparsed, '%B %d, %Y')
             elif len(detail) > 0:
-                parsed_license = detail.strip(" license") ## this is formatting from Github
+                parsed_license = detail.strip(' license') ## this is formatting from Github
                 for license in all_licenses:
                     if parsed_license in license:
                         self.license = license

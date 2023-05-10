@@ -7,6 +7,7 @@ from datetime import *
 import lxml
 import ontology
 import git_project
+import json
 
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])
@@ -62,14 +63,15 @@ def searchResults(term):
             details.append(cleaned)
         result = {'name': repo_name, 'details' : details}
 
-        results.append(result)
+       
 
         proj = git_project.GitProject(result['name'], result['details'])
         print("project license is:  " + proj.license)
-
-
         
-        newProj = ontology.create_project(proj.name, proj.owner, proj.lang, ["MIT_License"], proj.stars, datetime(2023, 1, 4))
+
+        results.append(proj.__dict__)
+        
+        newProj = ontology.create_project(proj.name, proj.owner, proj.lang, ["MIT_License"], proj.stars, proj.updated)
         print("new proj was created in ontology, name is : " + newProj.title)
         count = count + 1
     ontology.sync_ontology_updates()
