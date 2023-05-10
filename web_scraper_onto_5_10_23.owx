@@ -240,6 +240,12 @@
         <Class IRI="#Project_WithMulan_Permissive_Software_License_Version_2"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Project_WithNoLastModified"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Project_WithNo_License"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Project_WithOpen_Data_Commons_Open_Database_License_v1_0"/>
     </Declaration>
     <Declaration>
@@ -498,6 +504,12 @@
         <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#No_LastModified"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#No_License"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#Open_Data_Commons_Open_Database_License_v1_0"/>
     </Declaration>
     <Declaration>
@@ -672,6 +684,7 @@
         <ObjectOneOf>
             <NamedIndividual IRI="#Four_Months_Ago_LastModified"/>
             <NamedIndividual IRI="#Month_Ago_LastModified"/>
+            <NamedIndividual IRI="#No_LastModified"/>
             <NamedIndividual IRI="#Over_A_Year_Ago_LastModified"/>
             <NamedIndividual IRI="#Over_Two_Years_Ago_LastModified"/>
             <NamedIndividual IRI="#Six_Months_Ago_LastModified"/>
@@ -733,6 +746,7 @@
             <NamedIndividual IRI="#Microsoft_Public_License"/>
             <NamedIndividual IRI="#Microsoft_Reciprocal_License"/>
             <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
+            <NamedIndividual IRI="#No_License"/>
             <NamedIndividual IRI="#Open_Data_Commons_Open_Database_License_v1_0"/>
             <NamedIndividual IRI="#Open_Software_License_3_0"/>
             <NamedIndividual IRI="#PostgreSQL_License"/>
@@ -1141,6 +1155,26 @@
             <ObjectHasValue>
                 <ObjectProperty IRI="#hasLicense"/>
                 <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Project_WithNoLastModified"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Project_WithLastModified"/>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#hasLastModifiedAge"/>
+                <NamedIndividual IRI="#No_LastModified"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Project_WithNo_License"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Project_WithLicense"/>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#hasLicense"/>
+                <NamedIndividual IRI="#No_License"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -1804,6 +1838,14 @@
         <Class IRI="#Project_WithLicense"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Project_WithNoLastModified"/>
+        <Class IRI="#Project_WithLastModified"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Project_WithNo_License"/>
+        <Class IRI="#Project_WithLicense"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Project_WithOpen_Data_Commons_Open_Database_License_v1_0"/>
         <Class IRI="#Project_WithLicense"/>
     </SubClassOf>
@@ -2120,6 +2162,14 @@
     <ClassAssertion>
         <Class IRI="#ProjectLicense"/>
         <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProjectLastModified"/>
+        <NamedIndividual IRI="#No_LastModified"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProjectLicense"/>
+        <NamedIndividual IRI="#No_License"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#ProjectLicense"/>
@@ -3031,7 +3081,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#Project_With_around_5_Stars</IRI>
-        <AnonymousIndividual nodeID="_:genid2147483731"/>
+        <AnonymousIndividual nodeID="_:genid2147483730"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3041,7 +3091,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPosition"/>
         <IRI>#Project_With_around_750_Stars</IRI>
-        <AnonymousIndividual nodeID="_:genid2147483730"/>
+        <AnonymousIndividual nodeID="_:genid2147483731"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -4306,12 +4356,12 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
         <AnonymousIndividual nodeID="_:genid2147483730"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">249.06497756979633</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">73.29540114193644</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
         <AnonymousIndividual nodeID="_:genid2147483730"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">156.59542175240583</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">11.599547743130064</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -4321,12 +4371,12 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionX"/>
         <AnonymousIndividual nodeID="_:genid2147483731"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">73.29540114193644</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">249.06497756979633</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty IRI="http://ontologydesignpatterns.org/opla-sd#entityPositionY"/>
         <AnonymousIndividual nodeID="_:genid2147483731"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">11.599547743130064</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">156.59542175240583</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
