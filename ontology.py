@@ -2,7 +2,7 @@ from owlready2 import *
 from datetime import *
 
 
-onto = get_ontology("file:///Users/connornorton/Desktop/Python Workspace 2023/Web Scraper Ontology /web_scraper_ontology.owx").load()
+onto = get_ontology("file:///Users/connornorton/Desktop/Python Workspace 2023/Web Scraper Ontology /web_scraper_onto_5_10_23.owx").load()
 
 
 # Language Properties
@@ -66,6 +66,7 @@ Prop_Universal_Permissive_License_v1_0 = "Universal_Permissive_License_v1_0"
 Prop_University_of_Illinois__NCSA_Open_Source_License = "University_of_Illinois__NCSA_Open_Source_License"
 Prop_Vim_License = "Vim_License"
 Prop_zlib_License = "zlib_License"
+Prop_No_License = "No_License"
 
 
 # Stars Properties
@@ -96,7 +97,7 @@ Prop_10_Months_Ago = "Ten_Months_Ago"
 Prop_Year_Ago = "Year_Ago"
 Prop_Over_A_Year_Ago = "Over_A_Year_Ago"
 Prop_Over_2_Years_Ago = "Over_Two_Years_Ago"
-
+Prop_No_LastModified = "No_LastModified"
 
 # with onto:
 #     sync_reasoner()
@@ -148,6 +149,9 @@ def set_last_modified_range(onto, project):
     
     if project.has_Date_LastModified == None:
         print("This project has no last modified date")
+        project.hasLastModifiedAge = onto.No_LastModified
+        project.has_Age_LastModified = 0
+        #print("Project set to No Last Modified")
         return
     # Get today's date and time
     now = datetime.now()
@@ -484,7 +488,7 @@ def get_individuals_Project_WithLastModified(verbosity=0, last_modified_range=No
  
 
 # Sample Project Creation for testing
-create_project(title="Sample Project 1", owner="Connor", language=Prop_C, licenses=[Prop_GNU_Lesser_General_Public_License], num_stars=3000, last_modified_date=datetime(2023, 5, 5))
+create_project(title="Sample Project 1", owner="Connor", language=Prop_C, licenses=[Prop_GNU_Lesser_General_Public_License, Prop_Academic_Free_License_v3_0], num_stars=3000, last_modified_date=datetime(2023, 5, 5))
 create_project(title="Sample Project 2", owner="Darshil", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_License], num_stars=2000, last_modified_date=datetime(2023, 5, 4))
 create_project(title="Sample Project 3", owner="Luke", language=Prop_C_Sharp, licenses=[Prop_MIT_License], num_stars=1251, last_modified_date=datetime(2023, 5, 1))
 create_project(title="Sample Project 4", owner="Rishab", language=Prop_C, licenses=[Prop_BSD_License], num_stars=1000, last_modified_date=datetime(2023, 4, 25))
@@ -506,6 +510,8 @@ with onto:
 #print(get_individuals_Project_WithLastModified(verbosity=0, last_modified_range=Prop_Over_2_Years_Ago))
 #print(get_individuals_Project_WithStars(verbosity=0, star_range=Prop_over_2000_Stars))
 
+
+# TODO Make this intersection not union
 '''
 merge_filtered_individuals()
     - This function takes 2 lists of Project individuals and returns a single list of individual ordered according to order option chosen
@@ -655,8 +661,8 @@ def merge_filtered_individuals(list1, list2, order="by title"):
 # end of merge_filtered_individuals()
 
 # Test
-#list3 = merge_filtered_individuals(get_individuals_Project_WithLicense(license_value = None),get_individuals_Project_WithLanguage(lang=None), order="by license")
-#print(list3)
+list3 = merge_filtered_individuals(get_individuals_Project_WithLicense(license_value = Prop_Academic_Free_License_v3_0),get_individuals_Project_WithLanguage(lang=Prop_C), order="by license")
+print(list3)
 
 
 
@@ -774,3 +780,241 @@ def find_projects_with_obj_property_x_and_value_y(onto, property, value):
     
     
 # print(find_projects_with_obj_property_x_and_value_y(onto, "hasLanguage", "C_Sharp"))
+
+
+
+#license_handler() is a function to extarct licese values from projects
+#Each project can contain 1 or more than 1 license
+#function returns list of license name present in the passed project object.
+def license_handler(each_project):
+    temp_lic = []                                   #Variable to hold licenses
+    license_count = len(each_project.hasLicense)            #Takiing a count of license one project has
+    print("Each project: " + str(each_project.name) + " Number of license: " + str(license_count))
+    if license_count > 1:
+        temp_int_lic = str(each_project.hasLicense).split(" ")[(-1)*license_count:]
+        #print("temporary license varaible: " + str(each_project.hasLicense))
+        for each_lic in temp_int_lic:
+            temp_lic.append(each_lic.split(".").pop()[:-1])             #making a list if a project has more than one license
+                #print("Printing License where license count is more than 1: " + str(temp_lic))
+        return temp_lic
+    else:
+        temp_lic.append(str(each_project.hasLicense).split(".").pop()[:-1])
+        return temp_lic
+   
+def star_filter(each_project,stars):
+    result = None
+    if stars == "Greater than 2000":
+            print("I am in greater 2000")
+            if each_project in onto.Project_With_over_2000_Stars.instances():
+                        print(" I am in the final if")
+                        result = each_project.name
+    elif stars == "Around 1500":
+            if each_project in onto.Project_With_around_1500_Stars.instances():
+                        print(" I am in the final elif")
+                        result = each_project.name
+    elif stars == "Around 1000":
+            if each_project in onto.Project_With_around_1000_Stars.instances():
+                        result = each_project.name
+    elif stars == "Around 750":
+            if each_project in onto.Project_With_around_750_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 500":
+            if each_project in onto.Project_With_around_500_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 250":
+            if each_project in onto.Project_With_around_250_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 100":
+            if each_project in onto.Project_With_around_100_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 50":
+            if each_project in onto.Project_With_around_50_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 25":
+            if each_project in onto.Project_With_around_25_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 10":
+            if each_project in onto.Project_With_around_10_Stars.instances():
+                result = each_project.name
+    elif stars == "Around 5":
+            if each_project in onto.Project_With_less_than_5_Stars.instances():
+                result = each_project.name
+    elif stars == "No stars":
+            if each_project in onto.Project_With_no_Stars.instances():
+                result = each_project.name
+    return result
+
+
+def date_filter(each_project, date):
+    print("Native date")
+    result = None
+    if date == "Project_LastModified_Today":
+        if each_project in onto.Project_LastModified_Today.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Yesterday":
+        if each_project in onto.Project_LastModified_Yesterday.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_This_Week":
+        if each_project in onto.Project_LastModified_This_Week.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Week_Ago":
+        if each_project in onto.Project_LastModified_Week_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Two_Weeks_Ago":
+        if each_project in onto.Project_LastModified_Two_Weeks_Ago.instances():
+            result = each_project.name        
+    elif date == "Project_LastModified_Month_Ago":
+        if each_project in onto.Project_LastModified_Month_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Two_Months_Ago":
+        if each_project in onto.Project_LastModified_Two_Months_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Four_Months_Ago":
+        if each_project in onto.Project_LastModified_Four_Months_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Six_Months_Ago":
+        if each_project in onto.Project_LastModified_Six_Months_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Ten_Months_Ago":
+        if each_project in onto.Project_LastModified_Ten_Months_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Year_Ago":
+        if each_project in onto.Project_LastModified_Year_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Over_A_Year_Ago":
+        if each_project in onto.Project_LastModified_Over_A_Year_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Two_Years_Ago":
+        if each_project in onto.Project_LastModified_Two_Years_Ago.instances():
+            result = each_project.name
+    elif date == "Project_LastModified_Over_Two_Years_Ago":
+        if each_project in onto.Project_LastModified_Over_Two_Years_Ago.instances():
+            result = each_project.name
+    return result
+
+
+
+
+
+
+
+
+def intersection_of_filters(license = None, language = None , date = None, stars = None):
+   
+    result = []
+   
+    if (license or language or date or stars) == None:
+        print("No filters were passed")
+        #return
+    elif(license and language and date and stars) != None:
+        for each_project in onto.Project.instances():
+            temp_lang = str(each_project.hasLanguage).split(".").pop()
+            if (temp_lang == language) == True:
+                intermediate_license = license_handler(each_project)
+                if (True if license in intermediate_license else False):
+                    if star_filter(each_project,stars) is not None:
+                        if date_filter(each_project,date) is not None:
+                            result.append(date_filter(each_project,date))
+
+
+
+
+        print("All filters present")
+    elif(license and language and date) != None:
+        for each_project in onto.Project.instances():
+            temp_lang = str(each_project.hasLanguage).split(".").pop()
+            if (temp_lang == language) == True:
+                intermediate_license = license_handler(each_project)
+                if (True if license in intermediate_license else False):
+                        if date_filter(each_project,date) is not None:
+                            result.append(date_filter(each_project,date))
+        print("All filters present")
+    elif(license and language and stars) != None:
+        for each_project in onto.Project.instances():
+            temp_lang = str(each_project.hasLanguage).split(".").pop()
+            if (temp_lang == language) == True:
+                print("Language checked")
+                intermediate_license = license_handler(each_project)
+                if (True if license in intermediate_license else False):
+                    print("Cool! License also checked")
+                    if star_filter(each_project,stars) is not None:
+                            print("Even stars checked")
+                            result.append(star_filter(each_project,stars))
+        print("All filters present")
+    elif(license and date and stars) != None:
+            for each_project in onto.Project.instances():
+                 intermediate_license = license_handler(each_project)
+                 if (True if license in intermediate_license else False):
+                    if star_filter(each_project,stars) is not None:
+                        if date_filter(each_project,date) is not None:
+                            result.append(date_filter(each_project,date))
+
+
+    elif(language and date and stars) != None:
+        for each_project in onto.Project.instances():
+            temp_lange = str(each_project.hasLanguage).split(".").pop()
+            if temp_lange == language:
+                if star_filter(each_project,stars) is not None:
+                    if date_filter(each_project,date) is not None:
+                        result.append(date_filter(each_project,date))
+    elif (license and language) != None:
+        intermediate_license = []
+        for each_project in onto.Project.instances():
+            intermediate_license = license_handler(each_project)        
+            temp_lang = str(each_project.hasLanguage).split(".").pop()
+            #print("License= " + str(temp_lic) + " Language= " + str(temp_lang))
+            if (True if license in intermediate_license else False) and (temp_lang == language) == True :
+                result.append(each_project.name)
+        print("Filters are present")
+        return result
+    elif(license and stars) != None:
+        for each_project in onto.Project.instances():
+            intermediate_license = license_handler(each_project)        
+            #temp_lang = str(each_project.hasLanguage).split(".").pop()
+            #print("License= " + str(temp_lic) + " Language= " + str(temp_lang))
+            if (True if license in intermediate_license else False):
+                #result.append(star_filter(each_project, stars))
+                if star_filter(each_project,stars) is not None:
+                    print("We got some result")
+                    print("printing the star filter: " + str(star_filter(each_project,stars)))
+                    result.append(star_filter(each_project,stars))
+                else:
+                    print("We did not get result")
+    elif(license and date):
+        for each_project in onto.Project.instances():
+            intermediate_license = license_handler(each_project)
+            if (True if license in intermediate_license else False):
+                print("I got the license." + str(each_project.name))
+                temp_date = date_filter(each_project,date)
+                print("Date for the project: " + str(temp_date))
+                if temp_date != None:
+                    print("We got some results!")
+                    result.append(temp_date)
+        print("Printing last result: " + str(result))        
+        return result
+    elif(language and stars):
+        for each_project in onto.Project.instances():
+            temp_lange = str(each_project.hasLanguage).split(".").pop()
+            if temp_lange == language:
+                if star_filter(each_project,stars) is not None:
+                    result.append(star_filter(each_project,stars))
+        return result
+    elif(language and date):
+        for each_project in onto.Project.instances():
+            temp_lange = str(each_project.hasLanguage).split(".").pop()
+            if temp_lange == language:
+                if date_filter(each_project,date) is not None:
+                    result.append(date_filter(each_project,date))
+    elif(stars and date):
+        for each_project in onto.Project.instances():
+            if star_filter(each_project,stars) is not None:
+                    if date_filter(each_project,date) is not None:
+                        result.append(date_filter(each_project,date))
+    return result
+
+
+
+
+    # elif (license and date) != None:
+       
+    #     for each_project in onto.Project.instances():
