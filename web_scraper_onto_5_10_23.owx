@@ -240,9 +240,6 @@
         <Class IRI="#Project_WithMulan_Permissive_Software_License_Version_2"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Project_WithNoLastModified"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Project_WithNo_License"/>
     </Declaration>
     <Declaration>
@@ -504,9 +501,6 @@
         <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#No_LastModified"/>
-    </Declaration>
-    <Declaration>
         <NamedIndividual IRI="#No_License"/>
     </Declaration>
     <Declaration>
@@ -684,7 +678,6 @@
         <ObjectOneOf>
             <NamedIndividual IRI="#Four_Months_Ago_LastModified"/>
             <NamedIndividual IRI="#Month_Ago_LastModified"/>
-            <NamedIndividual IRI="#No_LastModified"/>
             <NamedIndividual IRI="#Over_A_Year_Ago_LastModified"/>
             <NamedIndividual IRI="#Over_Two_Years_Ago_LastModified"/>
             <NamedIndividual IRI="#Six_Months_Ago_LastModified"/>
@@ -1155,16 +1148,6 @@
             <ObjectHasValue>
                 <ObjectProperty IRI="#hasLicense"/>
                 <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-    </EquivalentClasses>
-    <EquivalentClasses>
-        <Class IRI="#Project_WithNoLastModified"/>
-        <ObjectIntersectionOf>
-            <Class IRI="#Project_WithLastModified"/>
-            <ObjectHasValue>
-                <ObjectProperty IRI="#hasLastModifiedAge"/>
-                <NamedIndividual IRI="#No_LastModified"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -1838,10 +1821,6 @@
         <Class IRI="#Project_WithLicense"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Project_WithNoLastModified"/>
-        <Class IRI="#Project_WithLastModified"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#Project_WithNo_License"/>
         <Class IRI="#Project_WithLicense"/>
     </SubClassOf>
@@ -2162,10 +2141,6 @@
     <ClassAssertion>
         <Class IRI="#ProjectLicense"/>
         <NamedIndividual IRI="#Mulan_Permissive_Software_License_Version_2"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#ProjectLastModified"/>
-        <NamedIndividual IRI="#No_LastModified"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#ProjectLicense"/>
