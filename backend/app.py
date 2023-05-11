@@ -29,7 +29,7 @@ def searchResults(term):
     else:
         lang = 'C'
 
-    url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=1'
+    url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=80'
 
     response = requests.get(url)
 
@@ -59,6 +59,8 @@ def searchResults(term):
 
         repoDetails = soup3.find_all('div', {'class':'mr-3'})
         number_of_details = len(repoDetails)
+        date_rel = "Updated " + each_result.select_one('relative-time').get_text().strip()
+    
 
         ## TODO may just want like 3 retries here if number_of_details comes back empty
         
@@ -66,9 +68,13 @@ def searchResults(term):
 
         details = []
         for each_detail in repoDetails:
-            cleaned = each_detail.text.strip()
+            cleaned : str = each_detail.text.strip()
             print(cleaned)
-            details.append(cleaned)
+            if not cleaned.__contains__('Updated'): # use the properly-formatted datetime from Git's html, not what's being displayed
+                details.append(cleaned)
+
+        details.append(date_rel) ## corrected date
+
         result = {'name': repo_name, 'details' : details}
 
        

@@ -19,7 +19,7 @@ class GitProject:
             elif detail.startswith('Updated'):
                 parsed = detail.strip('Updated ')
                 reparsed = parsed.strip(',')
-                self.updated = datetime.strptime(reparsed, '%B %d, %Y')
+                self.updated = datetime.strptime(reparsed, '%b %d, %Y')
             elif len(detail) > 0:
                 parsed_license = detail.strip(' license') ## this is formatting from Github
                 for license in all_licenses:
