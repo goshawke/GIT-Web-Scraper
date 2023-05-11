@@ -154,6 +154,13 @@ Prop_No_LastModified = "No_LastModified"
 
 # with onto:
 #     sync_reasoner()
+
+def clear_onto():
+    count = 0
+    for proj in onto.Project.instances():
+        destroy_entity(proj)
+        count += 1
+    print(str(count) + " projects destroyed")
     
 '''
 create_project()

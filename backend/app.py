@@ -42,6 +42,9 @@ def searchResults(term):
 
     results = []
 
+    ##
+    ontology.clear_onto()
+
 
     for each_result in search_results:
         sample_code = str(each_result)
@@ -91,7 +94,7 @@ def searchResults(term):
     ontology.sync_ontology_updates()
     print("Success")
 
-    ## this is purely test code, TODO delete it 
+    ## this is purely test code, logs returned projects
     returnedOntResult1 = ontology.get_individuals_Project_WithLastModified()
     for res in returnedOntResult1:
         print("returned from ontology :" + res) 
