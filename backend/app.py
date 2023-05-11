@@ -29,7 +29,7 @@ def searchResults(term):
     else:
         lang = 'C'
 
-    url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=80'
+    url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=1'
 
     response = requests.get(url)
 
