@@ -2,8 +2,7 @@ from owlready2 import *
 from datetime import *
 
 
-onto = get_ontology("file:///Users/connornorton/Desktop/Python Workspace 2023/Web Scraper Ontology /web_scraper_onto_5_10_23.owx").load()
-
+onto = get_ontology("C:\\Users\\lukas\\repos\\cs6235\\web_scraper_onto_5_10_23.owx").load()
 
 # Language Properties
 Prop_C = "C"
@@ -841,7 +840,7 @@ def find_projects_with_obj_property_x_and_value_y(onto, property, value):
 
 
 
-#license_handler() is a function to extarct licese values from projects
+#license_handler() is a function to extarsct licese values from projects
 #Each project can contain 1 or more than 1 license
 #function returns list of license name present in the passed project object.
 def license_handler(each_project):
