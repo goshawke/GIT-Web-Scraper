@@ -102,4 +102,16 @@ main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/* 
+.dropdown-item {
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+} */
+
 

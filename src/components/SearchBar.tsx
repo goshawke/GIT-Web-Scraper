@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
-
-
 interface Props {
-  onSearch: (query: string) => void;
+  onSearch: (query: string, language: string) => void;
   defaultLanguage?: string;
 }
 
@@ -13,7 +11,7 @@ const SearchBar: React.FC<Props> = ({ onSearch, defaultLanguage = '' }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(`${search}+language:${language}`);
+    onSearch(search, language);
   };
 
   const handleLanguageClick = (lang: string) => {
@@ -49,18 +47,18 @@ const SearchBar: React.FC<Props> = ({ onSearch, defaultLanguage = '' }) => {
         </button>
         <button
           type="button"
-          onClick={() => handleLanguageClick('c++')}
+          onClick={() => handleLanguageClick('C%2B%2B')}
           className={`px-4 py-2 rounded-md hover:bg-blue-200 ${
-            language === 'c++' ? 'bg-white text-blue-500 font-bold' : ''
+            language === 'C%2B%2B' ? 'bg-white text-blue-500 font-bold' : ''
           }`}
         >
           C++
         </button>
         <button
           type="button"
-          onClick={() => handleLanguageClick('c#')}
+          onClick={() => handleLanguageClick('C%23')}
           className={`px-4 py-2 rounded-md hover:bg-blue-200 ${
-            language === 'c#' ? 'bg-white text-blue-500 font-bold' : ''
+            language === 'C%23' ? 'bg-white text-blue-500 font-bold' : ''
           }`}
         >
           C#

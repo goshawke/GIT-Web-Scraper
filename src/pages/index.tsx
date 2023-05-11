@@ -8,17 +8,17 @@ const Home: React.FC = () => {
     Array<{ name: string; url?: string; details?: string[] }>
   >([]);
   
-  const defaultLanguage = 'c';
-
-
   const router = useRouter();
 
-  const searchRepositories = async (query: string) => {
+  const searchRepositories = async (query: string, language: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/search-results/${query}`);
+      const term = query.trim() ? query : 'parse';
+      const response = await fetch(
+        `http://localhost:5000/search-results/${term}?lang=${language}`,
+      );
       const data = await response.json();
       setResults(data);
-
+  
       router.push({
         pathname: '/results',
         query: { results: JSON.stringify(data) },
@@ -27,12 +27,17 @@ const Home: React.FC = () => {
       console.error('Failed to fetch search results:', error);
     }
   };
+  
+  
+  
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-300 to-purple-600 text-white">
       <main className="flex flex-col items-center space-y-4 pt-16">
         <h1 className="text-6xl font-bold text-white">Git Search</h1>
-        <SearchBar onSearch={searchRepositories} defaultLanguage={defaultLanguage} />
+        <SearchBar onSearch={searchRepositories} />
+
         <div className="results">
           {results.map((repo, index) => (
             <div key={index}>
