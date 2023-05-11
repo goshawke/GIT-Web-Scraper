@@ -22,6 +22,13 @@ def searchResults(term):
 
     lang = request.args.get("lang", default="C")
 
+    if lang == "C++": 
+        lang = "C%2B%2B"
+    elif lang == "C#":
+        lang  = 'C%23'
+    else:
+        lang = 'C'
+
     url = f'https://github.com/search?l={lang}&o=desc&s=updated&type=Repositories&q={term}&p=1'
 
     response = requests.get(url)
@@ -34,6 +41,7 @@ def searchResults(term):
     count = 1
 
     results = []
+    ontology.clear_onto()
 
     for each_result in search_results:
         sample_code = str(each_result)

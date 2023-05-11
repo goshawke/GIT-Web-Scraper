@@ -4,6 +4,9 @@ from datetime import *
 
 onto = get_ontology("C:\\Users\\lukas\\repos\\cs6235\\web_scraper_onto_5_10_23.owx").load()
 
+def clear_onto():
+    onto.load()
+
 # Language Properties
 Prop_C = "C"
 Prop_C_Plus_Plus = "C_Plus_Plus"
