@@ -41,7 +41,7 @@ def searchResults(term):
     count = 1
 
     results = []
-    ontology.clear_onto()
+
 
     for each_result in search_results:
         sample_code = str(each_result)

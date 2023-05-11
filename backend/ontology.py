@@ -4,9 +4,6 @@ from datetime import *
 
 onto = get_ontology("C:\\Users\\lukas\\repos\\cs6235\\web_scraper_onto_5_10_23.owx").load()
 
-def clear_onto():
-    onto = get_ontology("C:\\Users\\lukas\\repos\\cs6235\\web_scraper_onto_5_10_23.owx").load()
-
 # Language Properties
 Prop_C = "C"
 Prop_C_Plus_Plus = "C_Plus_Plus"
@@ -548,20 +545,20 @@ def get_individuals_Project_WithLastModified(verbosity=0, last_modified_range=No
  
 
 # Sample Project Creation for testing
-# create_project(title="Sample Project 1", owner="Connor", language=Prop_C, licenses=[Prop_GNU_Lesser_General_Public_License, Prop_Academic_Free_License_v3_0], num_stars=3000, last_modified_date=datetime(2023, 5, 5))
-# create_project(title="Sample Project 2", owner="Darshil", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_License], num_stars=2000, last_modified_date=datetime(2023, 5, 4))
-# create_project(title="Sample Project 3", owner="Luke", language=Prop_C_Sharp, licenses=[Prop_MIT_License], num_stars=1251, last_modified_date=datetime(2023, 5, 1))
-# create_project(title="Sample Project 4", owner="Rishab", language=Prop_C, licenses=[Prop_BSD_License], num_stars=1000, last_modified_date=datetime(2023, 4, 25))
-# create_project(title="Sample Project 5", owner="Renato", language=Prop_C, licenses=[Prop_Creative_Commons_License], num_stars=750, last_modified_date=datetime(2023, 4, 20))
-# create_project(title="Sample Project 6", owner="Connor", language=Prop_C_Plus_Plus, licenses=[Prop_Academic_Free_License_v3_0, Prop_GNU_Affero_General_Public_License_v3_0], num_stars=520, last_modified_date=datetime(2023, 4, 4))
-# create_project(title="Sample Project 7", owner="Darshil", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_License], num_stars=250, last_modified_date=datetime(2023, 3, 4))
-# create_project(title="Sample Project 8", owner="Luke", language=Prop_C_Sharp, licenses=[Prop_MIT_License, Prop_Artistic_License_2_0], num_stars=100, last_modified_date=datetime(2023, 1, 4))
-# create_project(title="Sample Project 9", owner="Rishab", language=Prop_C, licenses=[Prop_BSD_License, Prop_Boost_Software_License_1_0], num_stars=50, last_modified_date=datetime(2022, 11, 10))
-# create_project(title="Sample Project 10", owner="Renato", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_General_Public_License_v3_0], num_stars=25, last_modified_date=datetime(2022, 7, 10))
-# create_project(title="Sample Project 11", owner="Charles", language=Prop_C_Sharp, licenses=[Prop_MIT_License, Prop_Artistic_License_2_0, Prop_CERN_Open_Hardware_Licence_Version_2_Permissive], num_stars=10, last_modified_date=datetime(2022, 5, 4))
-# create_project(title="Sample Project 12", owner="Julia", language=Prop_C, licenses=[Prop_BSD_3_Clause_Clear_License, Prop_Educational_Community_License_v2_0, Prop_GNU_Free_Documentation_License_v1_3], num_stars=4, last_modified_date=datetime(2022, 4, 10))
-# create_project(title="Sample Project 13", owner="Andrea", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_General_Public_License_v3_0, Prop_Mulan_Permissive_Software_License_Version_2, Prop_SIL_Open_Font_License_1_1], num_stars=0, last_modified_date=datetime(2021, 5, 4))
-# create_project(title="Sample Project 14", owner="Doug", language=Prop_C_Sharp, licenses=[Prop_BSD_3_Clause_New_or_Revised_License, Prop_BSD_3_Clause_Clear_License], num_stars=666, last_modified_date=datetime(2019, 5, 5))
+create_project(title="Sample Project 1", owner="Connor", language=Prop_C, licenses=[Prop_GNU_Lesser_General_Public_License, Prop_Academic_Free_License_v3_0], num_stars=3000, last_modified_date=datetime(2023, 5, 5))
+create_project(title="Sample Project 2", owner="Darshil", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_License], num_stars=2000, last_modified_date=datetime(2023, 5, 4))
+create_project(title="Sample Project 3", owner="Luke", language=Prop_C_Sharp, licenses=[Prop_MIT_License], num_stars=1251, last_modified_date=datetime(2023, 5, 1))
+create_project(title="Sample Project 4", owner="Rishab", language=Prop_C, licenses=[Prop_BSD_License], num_stars=1000, last_modified_date=datetime(2023, 4, 25))
+create_project(title="Sample Project 5", owner="Renato", language=Prop_C, licenses=[Prop_Creative_Commons_License], num_stars=750, last_modified_date=datetime(2023, 4, 20))
+create_project(title="Sample Project 6", owner="Connor", language=Prop_C_Plus_Plus, licenses=[Prop_Academic_Free_License_v3_0, Prop_GNU_Affero_General_Public_License_v3_0], num_stars=520, last_modified_date=datetime(2023, 4, 4))
+create_project(title="Sample Project 7", owner="Darshil", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_License], num_stars=250, last_modified_date=datetime(2023, 3, 4))
+create_project(title="Sample Project 8", owner="Luke", language=Prop_C_Sharp, licenses=[Prop_MIT_License, Prop_Artistic_License_2_0], num_stars=100, last_modified_date=datetime(2023, 1, 4))
+create_project(title="Sample Project 9", owner="Rishab", language=Prop_C, licenses=[Prop_BSD_License, Prop_Boost_Software_License_1_0], num_stars=50, last_modified_date=datetime(2022, 11, 10))
+create_project(title="Sample Project 10", owner="Renato", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_General_Public_License_v3_0], num_stars=25, last_modified_date=datetime(2022, 7, 10))
+create_project(title="Sample Project 11", owner="Charles", language=Prop_C_Sharp, licenses=[Prop_MIT_License, Prop_Artistic_License_2_0, Prop_CERN_Open_Hardware_Licence_Version_2_Permissive], num_stars=10, last_modified_date=datetime(2022, 5, 4))
+create_project(title="Sample Project 12", owner="Julia", language=Prop_C, licenses=[Prop_BSD_3_Clause_Clear_License, Prop_Educational_Community_License_v2_0, Prop_GNU_Free_Documentation_License_v1_3], num_stars=4, last_modified_date=datetime(2022, 4, 10))
+create_project(title="Sample Project 13", owner="Andrea", language=Prop_C_Plus_Plus, licenses=[Prop_GNU_General_Public_License_v3_0, Prop_Mulan_Permissive_Software_License_Version_2, Prop_SIL_Open_Font_License_1_1], num_stars=0, last_modified_date=datetime(2021, 5, 4))
+create_project(title="Sample Project 14", owner="Doug", language=Prop_C_Sharp, licenses=[Prop_BSD_3_Clause_New_or_Revised_License, Prop_BSD_3_Clause_Clear_License], num_stars=666, last_modified_date=datetime(2019, 5, 5))
 
 
 with onto:
