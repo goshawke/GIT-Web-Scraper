@@ -129,7 +129,7 @@ def fileStructure():
         content_type_temp = content.svg
         content_url = (content.a)['href']
         content_type = content_type_temp['aria-label']
-        today = datetime.datetime.now()
+        today = datetime.now()
         #content_updated_tag = content.find('relative-time')
         content_updated_tag = content.select_one('relative-time')
         if content_updated_tag is not None:
