@@ -1,11 +1,24 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface FileStructureItem {
   URL: string;
   content_name: string;
   content_type: string;
   content_updated: string;
+}
+
+function transformPath(url: string) {
+  const urlArray = url.split('/');
+  const user = urlArray[1];
+  const projName = urlArray[2];
+  const treeIndex = urlArray.indexOf('tree');
+
+  if (treeIndex === -1) return { user, projName, fullRoute: url };
+
+  const fullRoute = urlArray.slice(treeIndex).join('-');
+  return { user, projName, fullRoute };
 }
 
 const FileStructure = () => {
@@ -34,16 +47,21 @@ const FileStructure = () => {
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm font-light">
-          {fileStructure.map((item, index) => (
-            <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
-              <td className="py-3 px-6 text-left">
-                <a href={item.URL}>{item.URL}</a>
-              </td>
-              <td className="py-3 px-6 text-left">{item.content_name}</td>
-              <td className="py-3 px-6 text-left">{item.content_type}</td>
-              <td className="py-3 px-6 text-left">{item.content_updated}</td>
-            </tr>
-          ))}
+          {fileStructure.map((item, index) => {
+            const { user, projName, fullRoute } = transformPath(item.URL);
+            return (
+              <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
+                <td className="py-3 px-6 text-left">
+                  <Link href={`/file-structure?user=${user}&projName=${projName}&fullRoute=${encodeURIComponent(fullRoute)}`}>
+                    {item.URL}
+                  </Link>
+                </td>
+                <td className="py-3 px-6 text-left">{item.content_name}</td>
+                <td className="py-3 px-6 text-left">{item.content_type}</td>
+                <td className="py-3 px-6 text-left">{item.content_updated}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

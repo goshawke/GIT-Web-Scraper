@@ -93,8 +93,8 @@ const Results: React.FC = () => {
                   <th className="border border-gray-800 px-4 py-2">Language</th>
                   <th className="border border-gray-800 px-4 py-2">License</th>
                   <th className="border border-gray-800 px-4 py-2">Stars</th>
-                  <th className="border border-gray-800 px-4 py-2">Last Updated</th>
-                  <th className="border border-gray-800 px-4 py-2">Last Updated</th>
+                  <th className="border border-gray-800 px-4 py-2">Creation Date</th>
+                  <th className="border border-gray-800 px-4 py-3">Last Updated</th>
                   <th className="border border-gray-800 px-4 py-2">Actions</th>
                 </tr>
               </thead>
@@ -124,6 +124,9 @@ const Results: React.FC = () => {
                       {repo.stars}
                     </td>
                     <td className="border border-gray-800 px-4 py-2">
+                      {'N/A'}
+                    </td>
+                    <td className="border border-gray-800 px-4 py-1">
                       {repo.updated || 'N/A'}
                     </td>
                     <td className="border border-gray-800 px-4 py-2 flex space-x-2">
