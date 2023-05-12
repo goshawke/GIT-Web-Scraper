@@ -38,7 +38,7 @@ const Results: React.FC = () => {
 
     // Construct the query parameters based on the filters
     const params = new URLSearchParams();
-    if (filters.language) params.append('language', filters.language);
+    if (filters.lastUpdate) params.append('date', filters.lastUpdate);
     if (filters.license) params.append('license', filters.license);
     if (filters.stars) params.append('stars', filters.stars);
 
@@ -80,52 +80,48 @@ const Results: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredResults.map((repo: Repo, index: number) => (
-                  <tr key={index} className={index % 2 === 0 ? 'bg-gray-800' : ''}>
-                    <td className="border border-gray-800 px-4 py-2">
-                      {repo.owner}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2">
-                      <a
-                        href={`https://github.com/${repo.owner}/${repo.name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 hover:underline"
-                      >
-                        {repo.name}
-                      </a>
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2">
-                      {repo.lang || 'N/A'}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2">
-                      {repo.license || 'N/A'}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2">
-                      {repo.stars}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2">
-                      {'N/A'}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-1">
-                      {repo.updated || 'N/A'}
-                    </td>
-                    <td className="border border-gray-800 px-4 py-2 flex space-x-2">
-                      <button
-                        onClick={() => handleFileStructureClick(repo.owner, repo.name)}
-                        className="bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded text-sm"
-                      >
-                        File Structure
-                      </button>
-                      <button
-                        onClick={() => handleDependenciesClick(repo.owner, repo.name)}
-                        className="bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-sm"
-                      >
-                        Dependencies
-                      </button>
+                {filteredResults.length > 0 ? (
+                  filteredResults.map((repo: Repo, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-800' : ''}>
+                      <td className="border border-gray-800 px-4 py-2">{repo.owner}</td>
+                      <td className="border border-gray-800 px-4 py-2">
+                        <a
+                          href={`https://github.com/${repo.owner}/${repo.name}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:underline"
+                        >
+                          {repo.name}
+                        </a>
+                      </td>
+                      <td className="border border-gray-800 px-4 py-2">{repo.lang || 'N/A'}</td>
+                      <td className="border border-gray-800 px-4 py-2">{repo.license || 'N/A'}</td>
+                      <td className="border border-gray-800 px-4 py-2">{repo.stars}</td>
+                      <td className="border border-gray-800 px-4 py-2">{'N/A'}</td>
+                      <td className="border border-gray-800 px-4 py-1">{repo.updated || 'N/A'}</td>
+                      <td className="border border-gray-800 px-4 py-2 flex space-x-2">
+                        <button
+                          onClick={() => handleFileStructureClick(repo.owner, repo.name)}
+                          className="bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded text-sm"
+                        >
+                          File Structure
+                        </button>
+                        <button
+                          onClick={() => handleDependenciesClick(repo.owner, repo.name)}
+                          className="bg-green-500 hover:bg-green-600 px-2 py-1 rounded text-sm"
+                        >
+                          Dependencies
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="text-center py-4">
+                      No repositories available for the applied filter. Please select a different filter and apply again.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
@@ -133,6 +129,7 @@ const Results: React.FC = () => {
       </main>
     </div>
   );
+
 };
 
 export default Results;

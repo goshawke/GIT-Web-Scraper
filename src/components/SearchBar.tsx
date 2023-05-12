@@ -8,14 +8,22 @@ interface Props {
 const SearchBar: React.FC<Props> = ({ onSearch, defaultLanguage = '' }) => {
   const [search, setSearch] = useState('');
   const [language, setLanguage] = useState(defaultLanguage);
+  const [displayLanguage, setDisplayLanguage] = useState(defaultLanguage);
+  const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(search, language);
+    if (!language) {
+      setError('Please select a language');
+    } else {
+      setError('');
+      onSearch(search, language);
+    }
   };
 
-  const handleLanguageClick = (lang: string) => {
+  const handleLanguageClick = (lang: string, displayLang: string) => {
     setLanguage(lang);
+    setDisplayLanguage(displayLang);
   };
 
   return (
@@ -38,35 +46,40 @@ const SearchBar: React.FC<Props> = ({ onSearch, defaultLanguage = '' }) => {
       <div className="flex space-x-4">
         <button
           type="button"
-          onClick={() => handleLanguageClick('c')}
+          onClick={() => handleLanguageClick('C', 'C')}
           className={`px-4 py-2 rounded-md hover:bg-blue-200 ${
-            language === 'c' ? 'bg-white text-blue-500 font-bold' : ''
+            displayLanguage === 'C' ? 'bg-white text-blue-500 font-bold' : ''
           }`}
         >
           C
         </button>
         <button
           type="button"
-          onClick={() => handleLanguageClick('C%2B%2B')}
+          onClick={() => handleLanguageClick('C%2B%2B', 'C++')}
           className={`px-4 py-2 rounded-md hover:bg-blue-200 ${
-            language === 'C%2B%2B' ? 'bg-white text-blue-500 font-bold' : ''
+            displayLanguage === 'C++' ? 'bg-white text-blue-500 font-bold' : ''
           }`}
         >
           C++
         </button>
         <button
           type="button"
-          onClick={() => handleLanguageClick('C%23')}
+          onClick={() => handleLanguageClick('C%23', 'C#')}
           className={`px-4 py-2 rounded-md hover:bg-blue-200 ${
-            language === 'C%23' ? 'bg-white text-blue-500 font-bold' : ''
+            displayLanguage === 'C#' ? 'bg-white text-blue-500 font-bold' : ''
           }`}
         >
           C#
         </button>
       </div>
-      {language && (
+      {displayLanguage && (
         <div className="text-white font-bold mt-2">
-          Selected language: {language}
+          Selected language: {displayLanguage}
+        </div>
+      )}
+      {error && (
+        <div className="text-red-200 text-3xl font-bold mt-2">
+          {error}
         </div>
       )}
     </form>
