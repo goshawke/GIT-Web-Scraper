@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import FilterPanel from '@/components/FilterPanel';
 
+// ...interface Repo
+
 interface Repo {
   lang: string;
   license: string;
@@ -31,52 +33,31 @@ const Results: React.FC = () => {
     router.push(`/dependencies?user=${repoOwner}&projName=${repoName}`);
   };
 
+  const handleApplyFilters = async (filters: any) => {
+    let url = 'http://localhost:5000/filter-results/';
 
-  const handleApplyFilters = (filters: any) => {
-    // Add the filtering logic here
+    // Construct the query parameters based on the filters
+    const params = new URLSearchParams();
+    if (filters.language) params.append('language', filters.language);
+    if (filters.license) params.append('license', filters.license);
+    if (filters.stars) params.append('stars', filters.stars);
 
-    // Dummy data for demonstration purposes
-    const dummyData: Repo[] = [
-      {
-        lang: 'C',
-        license: 'MIT',
-        name: 'repo1',
-        owner: 'user1',
-        stars: 100,
-        updated: '2023-01-10',
-      },
-      {
-        lang: 'C#',
-        license: 'MIT',
-        name: 'repo2',
-        owner: 'user2',
-        stars: 50,
-        updated: '2023-02-15',
-      },
-    ];
+    // Add the query parameters to the URL
+    url += `?${params.toString()}`;
 
-    // Replace the following code with the actual API call
-    setFilteredResults(dummyData.filter((repo) => {
-      // Apply filter logic here based on the "filters" object
-      // Return true if the repo passes all filters, false otherwise
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
 
-      let passFilter = true;
-
-      if (filters.language && repo.lang !== filters.language) {
-        passFilter = false;
+      if (response.ok) {
+        setFilteredResults(data);
+      } else {
+        console.error('An error occurred while fetching data: ', data);
       }
-
-      if (filters.license && repo.license !== filters.license) {
-        passFilter = false;
-      }
-
-      return passFilter;
-    }));
+    } catch (error) {
+      console.error('An error occurred while fetching data: ', error);
+    }
   };
-
-  if (!filteredResults || filteredResults.length === 0) {
-    return <div>No results found.</div>;
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">

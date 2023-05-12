@@ -7,12 +7,11 @@ interface FilterPanelProps {
 
 const FilterPanel: React.FC<FilterPanelProps> = ({ onApplyFilters }) => {
     const [license, setLicense] = useState('');
-    const [language, setLanguage] = useState('');
     const [stars, setStars] = useState('');
     const [lastUpdate, setLastUpdate] = useState('');
 
     const handleSubmit = () => {
-        onApplyFilters({ license, language, stars, lastUpdate });
+        onApplyFilters({ license, stars, lastUpdate });
     };
 
     return (
@@ -23,36 +22,22 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onApplyFilters }) => {
                     License:
                     <select value={license} onChange={(e) => setLicense(e.target.value)} className="w-full bg-white text-black px-2 py-1">
                         <option value="">Select License</option>
-                        <option value="MIT">MIT</option>
-                        <option value="GPL">GPL</option>
-                    </select>
-                </label>
-                <label className="flex flex-col w-40">
-                    Language:
-                    <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full bg-white text-black px-2 py-1">
-                        <option value="">Select Language</option>
-                        <option value="C">C</option>
-                        <option value="C#">C#</option>
+                        <option value="MIT_License">MIT License</option>
                     </select>
                 </label>
                 <label className="flex flex-col w-40">
                     Stars:
-                    <input
-                        type="text"
-                        placeholder=">=100"
-                        value={stars}
-                        onChange={(e) => setStars(e.target.value)}
-                        className="bg-white text-black px-2 py-1 w-full"
-                    />
+                    <select value={stars} onChange={(e) => setStars(e.target.value)} className="w-full bg-white text-black px-2 py-1">
+                        <option value="">Select Stars</option>
+                        <option value="no_Stars">No Stars</option>
+                    </select>
                 </label>
                 <label className="flex flex-col w-40">
                     Last Update:
-                    <input
-                        type="date"
-                        value={lastUpdate}
-                        onChange={(e) => setLastUpdate(e.target.value)}
-                        className="bg-white text-black px-2 py-1 w-full"
-                    />
+                    <select value={lastUpdate} onChange={(e) => setLastUpdate(e.target.value)} className="w-full bg-white text-black px-2 py-1">
+                        <option value="">Select Date</option>
+                        <option value="Today">Today</option>
+                    </select>
                 </label>
                 <button
                     className="bg-blue-500 hover:bg-blue-600 px-4 py-2 mt-4 rounded text-sm self-start"
